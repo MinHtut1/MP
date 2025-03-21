@@ -3,14 +3,12 @@ import { useState } from 'react';
 import './ResetCounter.css';
 //import Counter from "@/app/components/Counter";
 
-
-export default function ResetCounter()
-{
+export default function ResetCounter() {
     const [showB, setShowB] = useState(true);
     return (
         <div>
-            <Counter />
             {showB && <Counter />}
+            <Counter />
             <label>
                 <input
                     type="checkbox"
@@ -26,7 +24,7 @@ export default function ResetCounter()
 }
 
 function Counter() {
-    const [score, setScore] = useState();
+    const [score, setScore] = useState(0);
     const [hover, setHover] = useState(false);
 
     let className = 'counter';
