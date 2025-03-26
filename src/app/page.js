@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css'
 import Image from "next/image";
 import styles from "./page.module.css";
 import HelloWorld,{Another} from "./components/HelloWorld";
@@ -15,14 +16,15 @@ import ToDoListUI from "@/app/components/ToDoListUI";
 import Tab from "@/app/components/Tab";
 import ResetCounter from "@/app/components/ResetCounter";
 import CounterReducer from "@/app/components/reducer/CounterReducer";
+import TodoListWithReducer from "@/app/components/reducer/TodoListWithReducer";
 
 export default function Home() {
-   /* const items = ["one","two","three"]*/
+    const items = ["one","two","three"]
   return (
       <main >
       <div >
-          {/*<HelloWorld/>
-            <JsxExample/>*/}
+          {/*<HelloWorld/>*/}
+          {/*<JsxExample/>*/}
           {/*<Avatar/>*/}
           {/*<Greet message={"Hello World"}
                   label={"Not Something"}/>
@@ -52,7 +54,8 @@ export default function Home() {
               </div>
           </Tab>*/}
           {/*<ResetCounter/> */}
-          <CounterReducer/>
+          {/*<CounterReducer/>*/}
+          <TodoListWithReducer/>
           </div>
       </main>
   )
