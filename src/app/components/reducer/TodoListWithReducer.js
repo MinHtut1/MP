@@ -41,7 +41,7 @@ function TodoItem(props) {
     }
     const editBtnHandler = () => {
         editHandler(props.todo);
-    }
+    };
     return <div>
         {props.todo.title}
         &nbsp;
@@ -67,7 +67,7 @@ function createAction(type,payload)
 
 function TodoInput({dispatch,editTodo}) {
 
-    console.log('Todo input render');
+    console.log('Todo input render',editTodo);
     const addHandler = () =>{   
         let newId = nextId();
         const newTodo = {
@@ -77,11 +77,8 @@ function TodoInput({dispatch,editTodo}) {
         let addTodoAction = createAction('ADD_TODO',newTodo);
         dispatch(addTodoAction);
     };
-    const title = editTodo?editTodo.title:'Nothing';
+    const title = editTodo ==null?editTodo.title:'';
     console.log("Title", title);
-    
-    //const [todoText,setTodoText] = useState(title);
-    //console.log('TodoText ',todoText);
     useEffect(()=>{
         if(editTodo)
         {
@@ -94,15 +91,22 @@ function TodoInput({dispatch,editTodo}) {
     return <div>
         <form>
             <div className={"form-group"}>
-                <input type={"text"}
+                {editTodo? <input type={"text"}
                         value={'todoText'}
                         onChange={(event)=> setTodoText(event.target.value)}
                        className={"form-control-sm"}/>
-                <button type={"button"}
-                        className={"btn btn-primary"}
+
+                :<input type={"button"}
+                        value={todoText}
+                        onChange={(event)=> setTodoText(event.target.value)}
                         onClick={addHandler}
-                >   Add
-                </button>
+                        className={"form-control-sm"}/> }
+                        
+                <button type={"button"}
+                        className={"btn btn-primary"} 
+                        onClick={addHandler}
+                 >Add
+                 </button>
             </div>
 
         </form>
@@ -119,9 +123,10 @@ export default function TodoListWithReducer()
         setEditToDo(todo);
     }
     return (<div>
-        <TodoInput dispatch={dispatch}/>
+        <TodoInput dispatch={dispatch} editTodo={editTodo}/>
         <div>
-            {todos.map(todo => <TodoItem key={todo.id}
+            {
+                todos.map(todo => <TodoItem key={todo.id}
                                          todo={todo}
                                          editHandler = {editHandler}    
                                          dispatch={dispatch}/>)
