@@ -69,6 +69,15 @@ function TodoInput({dispatch,editTodo}) {
 
     console.log('Todo input render',editTodo);
     const addHandler = () =>{   
+        if (editTodo)
+        {
+            a
+        }
+        else
+        {
+            a
+        }
+
         let newId = nextId();
         const newTodo = {
             id : newId,
