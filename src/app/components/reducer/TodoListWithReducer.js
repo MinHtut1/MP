@@ -66,17 +66,8 @@ function createAction(type,payload)
 }
 
 function TodoInput({dispatch,editTodo}) {
-        if (editTodo)
-                {
-                    //Update case
-                }
-                else
-                {
-                    a
-                    
-                }
+        
     console.log('Todo input render',editTodo);
-    
     const title = editTodo!==null?editTodo.title:'';
     console.log("Title", title);
     
@@ -90,14 +81,23 @@ function TodoInput({dispatch,editTodo}) {
     const [todoText,setTodoText] = useState(title);
     console.log('TodoText ',todoText);
 
-    const addHandler = () =>{   
-        let newId = nextId();
-        const newTodo = {
-            id : newId,
-            title : 'New todo'
-        };
-        let addTodoAction = createAction('ADD_TODO',newTodo);
-        dispatch(addTodoAction);
+    const addHandler = () =>{  
+         if (editTodo)
+                {    
+                    //Update case
+                }
+                else
+                {
+                   let newId = nextId();
+                    const newTodo = {
+                        id : newId,
+                        title : todoText
+                    };
+                    let addTodoAction = createAction('ADD_TODO',newTodo);
+                    dispatch(addTodoAction);
+                    setTodoText(''); 
+                }
+        
     };
     return <div>
         <form>
