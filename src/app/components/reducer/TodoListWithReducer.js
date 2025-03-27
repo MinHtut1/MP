@@ -1,7 +1,7 @@
-"use client"
-import {use, useReducer, useState, useEffect} from "react";
+"use client";
+import { useReducer, useState, useEffect} from "react";
 
-function unique(array)
+function unique()
 {
     let id = 3;
     return function ()
@@ -77,9 +77,10 @@ function TodoInput({dispatch,editTodo}) {
         let addTodoAction = createAction('ADD_TODO',newTodo);
         dispatch(addTodoAction);
     };
-    const title = editTodo ==null?editTodo.title:'';
+    const title = editTodo!==null?editTodo.title:'';
     console.log("Title", title);
-    useEffect(()=>{
+    
+    useEffect( ()=>{
         if(editTodo)
         {
             setTodoText(editTodo.title);
@@ -91,17 +92,10 @@ function TodoInput({dispatch,editTodo}) {
     return <div>
         <form>
             <div className={"form-group"}>
-                {editTodo? <input type={"text"}
-                        value={'todoText'}
-                        onChange={(event)=> setTodoText(event.target.value)}
-                       className={"form-control-sm"}/>
-
-                :<input type={"button"}
+                <input type={"text"}
                         value={todoText}
                         onChange={(event)=> setTodoText(event.target.value)}
-                        onClick={addHandler}
-                        className={"form-control-sm"}/> }
-                        
+                       className={"form-control-sm"}/>
                 <button type={"button"}
                         className={"btn btn-primary"} 
                         onClick={addHandler}
@@ -109,7 +103,11 @@ function TodoInput({dispatch,editTodo}) {
                  </button>
             </div>
 
-        </form>
+        </form>     {/*:<input type={"button"}
+                        value={todoText}
+                        onChange={(event)=> setTodoText(event.target.value)}
+                        onClick={addHandler}
+                        className={"form-control-sm"}/>*/}
     </div>;
 }
 
