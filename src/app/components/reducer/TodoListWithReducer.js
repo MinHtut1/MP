@@ -20,7 +20,7 @@ const initialState  = [
     }
 ];
 const nextId = unique();
-function todoReducer(state,action)
+export function todoReducer(state,action)
 {
     switch (action.type)
     {
