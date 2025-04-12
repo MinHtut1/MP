@@ -37,7 +37,7 @@ export function todoReducer(state,action)
 function TodoItem(props) {
     const {dispatch} = props;
     const {editHandler} = props;
-    const deleteHandler = () => {
+    const deleteHandler = () =>{
         let deleteAction = createAction('DELETE_TODO',props.todo);
         dispatch(deleteAction);
     }
@@ -120,14 +120,14 @@ function TodoInput({dispatch,editTodo,clearEdit}) {
                         onChange={(event)=> setTodoText(event.target.value)}
                        className={"form-control-sm"}/>
                 <button type={"button"}
-
-className={"btn btn-primary"} 
+                        className={"btn btn-primary"} 
                         onClick={addHandler}
                  >Add
                  </button>
             </div>
 
-        </form>     {/*:<input type={"button"}
+        </form>     
+                        {/*:<input type={"button"}
                         value={todoText}
                         onChange={(event)=> setTodoText(event.target.value)}
                         onClick={addHandler}
@@ -147,10 +147,11 @@ export default function TodoListWithReducer()
     const clearEdit = () => {
         setEditToDo(null);
     }
+
     return (<div>
         <TodoInput dispatch={dispatch} 
-                    editTodo={...editTodo}  
-                    clearEdit ={clearEdit}/>
+                    editTodo={...editTodo} // editTodo can remove to fix the error
+                    clearEdit = {clearEdit}/>
         <div>
             {
                 todos.map(todo => <TodoItem key={todo.id}
