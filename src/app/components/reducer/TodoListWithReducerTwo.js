@@ -1,6 +1,6 @@
 'use client';
-import { useReducer, useState, useEffect } from "react";
-import{todoReducer}from './TodoListWithReducer';
+import { useReducer ,useState, useEffect } from "react";
+import {todoReducer} from "./TodoListWithReducer";
 
 function unique()
 {
@@ -10,27 +10,27 @@ function unique()
         return id ++;
     }
 }
-
-const initialState =[
+const initialState = [
     {
         id : 1,
         title : 'To do 1'
     },
     {
-        id : 2, 
+        id : 2,
         title : 'To do 2'
     }
 ];
 const newId = unique();
 
 function TodoItem(props) {
-    const { todo,update } = props;
+    const {todo,update} =props;
+
     const [editMode, setEditMode] = useState(false);
     const [editTitle, setEditTitle] = useState(todo.title);
-
-    //console.log('Todo' ,todo);
-    const editBtnHandler = () => {
-        if(editMode) {//Button is now Save 
+    
+    const editBtnHandler = () =>{
+        if(editMode)
+        {
             let updateTodo = {
                 ...todo,
                 title : editTitle
@@ -38,33 +38,35 @@ function TodoItem(props) {
             update(updateTodo);
             setEditMode(false);
         }
-        else {
+        else 
+        {
             setEditMode(true);
         }
-        //setEditMode(true);
-    };
-    return <div>{
+
+    }
+
+    return (<div>
+        {
             !editMode && props.todo.title
         }
         {
             editMode && <input type={"text"} value={editTitle}
-                                            onChange={(event)=> setEditTitle(event.target.value)}/>
+                                             onChange={(event)=>setEditTitle(event.target.value)}/>
         }
-        <button type="button"
-            className="btn btn-primary"
-            onClick={editBtnHandler}
+        <button type={"button"}
+                 className={"btn btn-primary"}
+                 onClick={editBtnHandler}
         >
             { editMode? 'Save' : 'Edit'}
-            </button>
-            &nbsp;
-            <button type={"button"}
-                    className={"btn btn-danger"}>
-                Delete
-                </button>        
-    </div>
-};
-
-function createAction(type, payload) 
+        </button>
+        &nbsp;
+        <button type={"button"}            
+                 className={"btn btn-danger"}>
+            Delete
+        </button>
+    </div>);
+}
+function createAction(type, payload)
 {
     return {
         type,
@@ -72,19 +74,21 @@ function createAction(type, payload)
     }
 }
 
-export default function TodoListWithReducerTwo() 
+export default function ToDoListWithReducerTwo()
 {
-    const [todos, dispatch] = useReducer(todoReducer, initialState);
-    const updateTodo = (todo) => {
-        let updateAction = createAction('Update_Todo',todo);
+    const [todos,dispatch] = useReducer(todoReducer,initialState);
+
+    const updateTodo = (todo) =>{
+        let updateAction = createAction('UPDATE_TODO',todo);
         dispatch(updateAction);
     }
-    console.log('Todos', todos);
-    return (<div>{
-            todos.map((todo)=> <TodoItem key={todo.id} 
-                                         todo={todo}
-                                         update={updateTodo}/>
-            )
+
+    return (<div>
+        {
+            todos.map((todo) => <TodoItem key={todo.id} 
+                                        todo={todo}
+                                        update={updateTodo}/>
+            )   
         }
     </div>);
 }
