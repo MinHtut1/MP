@@ -19,6 +19,9 @@ import ResetCounter from "@/app/components/ResetCounter";
 import CounterReducer from "@/app/components/reducer/CounterReducer";
 import TodoListWithReducer from "@/app/components/reducer/TodoListWithReducer";
 import TodoListWithReducerTwo from './components/reducer/TodoListWithReducerTwo';
+import ReuseComponent from './components/reducer/ReuseComponent';
+import ContextDemo from './components/context/ContextDemo';
+import ScalingWithContext from './components/context/ScalingWithContext';
 
 export default function Home() {
     const items = ["one","two","three"]
@@ -58,7 +61,10 @@ export default function Home() {
           {/*<ResetCounter/> */}
           {/*<CounterReducer/>*/}
           {/*<TodoListWithReducer/>*/}
-          <TodoListWithReducerTwo/>
+          {/*<TodoListWithReducerTwo/>
+          <ReuseComponent/>*/}
+          {/*<ContextDemo/>*/}
+          <ScalingWithContext/>
           </div>
       </main>
   )

@@ -1,6 +1,7 @@
 'use client';
 import { useReducer ,useState, useEffect } from "react";
 import {todoReducer} from "./TodoListWithReducer";
+import next from "next";
 
 function unique()
 {
@@ -23,7 +24,7 @@ const initialState = [
 const newId = unique();
 
 function TodoItem(props) {
-    const {todo,update} =props;
+    const {todo,update,deleteTodo} =props;
 
     const [editMode, setEditMode] = useState(false);
     const [editTitle, setEditTitle] = useState(todo.title);
@@ -44,6 +45,9 @@ function TodoItem(props) {
         }
 
     }
+    const deleteBtnHandler = () =>{
+        deleteTodo(todo);
+    }
 
     return (<div>
         {
@@ -51,7 +55,7 @@ function TodoItem(props) {
         }
         {
             editMode && <input type={"text"} value={editTitle}
-                                             onChange={(event)=>setEditTitle(event.target.value)}/>
+                                             onChange={(event)=> setEditTitle(event.target.value)}/>
         }
         <button type={"button"}
                  className={"btn btn-primary"}
@@ -61,7 +65,8 @@ function TodoItem(props) {
         </button>
         &nbsp;
         <button type={"button"}            
-                 className={"btn btn-danger"}>
+                 className={"btn btn-danger"}
+                 onClick={deleteBtnHandler}>
             Delete
         </button>
     </div>);
@@ -74,6 +79,41 @@ function createAction(type, payload)
     }
 }
 
+export function TodoInput(props) {
+    const {addTodo} = props;
+    const[todoText,setTodoText] = useState('');
+    const addBtnHandler = () =>{
+        let nextId = newId();
+        console.log('nextId',nextId);
+        const newTodo = {
+            id : nextId,
+            title : todoText
+        };
+        addTodo(newTodo);
+        setTodoText('');
+    };
+        {/*let addAction = createAction('ADD_TODO',todo);
+        props.dispatch(addAction);
+        setTodoText('');*/}
+      
+        return <div>
+            <form>
+                <div className={"form-group"}>
+                    <input type={"text"}
+                           value={todoText}                      
+                           onChange={(event)=>setTodoText(event.target.value)}
+                        className={"form-control-sm"} />
+                    <button type={"button"}
+                        className={"btn btn-primary"}
+                        onClick={addBtnHandler}
+                        
+                    >Add
+                    </button>
+                </div>
+            </form>
+        </div>;
+    }
+
 export default function ToDoListWithReducerTwo()
 {
     const [todos,dispatch] = useReducer(todoReducer,initialState);
@@ -83,11 +123,23 @@ export default function ToDoListWithReducerTwo()
         dispatch(updateAction);
     }
 
+    const deleteTodo = (todo) =>{
+        let deleteAction = createAction('DELETE_TODO',todo);
+        dispatch(deleteAction);
+    }
+
+    const addTodo = (todo) =>{
+        let addTodoAction = createAction('ADD_TODO',todo);
+        dispatch(addTodoAction);
+    }
+
     return (<div>
+        <TodoInput addTodo={addTodo}/>
         {
             todos.map((todo) => <TodoItem key={todo.id} 
                                         todo={todo}
-                                        update={updateTodo}/>
+                                        update={updateTodo}
+                                        deleteTodo = {deleteTodo} />
             )   
         }
     </div>);
