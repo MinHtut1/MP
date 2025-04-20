@@ -29,7 +29,8 @@ export function todoReducer(state,action)
         case 'DELETE_TODO':
             return state.filter(todo=>todo.id != action.payload.id);
         case 'UPDATE_TODO':
-            return state.map(todo => todo.id === action.payload.id ? action.payload : todo);
+            return state.map(todo => todo.id === action.payload.id ?action.payload:todo);
+          
     }
     return state;
 }
@@ -146,7 +147,7 @@ export default function TodoListWithReducer()
     }
     const clearEdit = () => {
         setEditToDo(null);
-    }
+    };
 
     return (<div>
         <TodoInput dispatch={dispatch} 
@@ -160,5 +161,5 @@ export default function TodoListWithReducer()
                                             dispatch={dispatch}/>)
             }
         </div>
-    </div>)
+    </div>);
 }

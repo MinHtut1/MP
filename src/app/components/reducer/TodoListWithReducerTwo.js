@@ -1,7 +1,8 @@
 'use client';
-import { useReducer ,useState, useEffect } from "react";
+import { useReducer ,useState, useEffect, useContext } from "react";
 import {todoReducer} from "./TodoListWithReducer";
 import next from "next";
+import { TodoContext, TodoDispatchContext } from "../context/TodoContext";
 
 function unique()
 {
@@ -84,7 +85,7 @@ export function TodoInput(props) {
     const[todoText,setTodoText] = useState('');
     const addBtnHandler = () =>{
         let nextId = newId();
-        console.log('nextId',nextId);
+        //console.log('nextId',nextId);
         const newTodo = {
             id : nextId,
             title : todoText
@@ -116,7 +117,9 @@ export function TodoInput(props) {
 
 export default function ToDoListWithReducerTwo()
 {
-    const [todos,dispatch] = useReducer(todoReducer,initialState);
+    //const [todos,dispatch] = useReducer(todoReducer,initialState);
+    const todos = useContext(TodoContext);
+    const dispatch = useContext(TodoDispatchContext);
 
     const updateTodo = (todo) =>{
         let updateAction = createAction('UPDATE_TODO',todo);

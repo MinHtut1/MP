@@ -18,7 +18,8 @@ const initialState = {
 function createAction(type)
 {
     return {
-        type
+        type,
+        payload
     }
 }
 
